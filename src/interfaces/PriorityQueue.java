@@ -3,11 +3,13 @@
  */
 package interfaces;
 
+import java.util.Iterator;
+
 /**
  * @author Ruarc.Sorensen
  *
  */
-public interface PriorityQueue<Item>
+public interface PriorityQueue<Item> extends Iterable<Item>
 {
 
 	class DataElement<Item>
@@ -16,13 +18,17 @@ public interface PriorityQueue<Item>
 		Item item;
 	}
 	
-	void push(int priority, Item item);
+	public void push(int priority, Item item);
 	
-	Item pop();
+	public Item pop();
 	
-	int highestPriority();
+	public int highestPriority();
 	
-	int lowestPriority();
+	public int lowestPriority();
 	
-	boolean isEmpty();
+	public boolean isEmpty();
+	
+	public Item peek();
+	
+	public Iterator<Item> iterator();
 }
