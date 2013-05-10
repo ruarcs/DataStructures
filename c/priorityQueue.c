@@ -20,19 +20,6 @@ struct PriorityQueue
 
 
 
-/********************
- * Enum definitions *
- ********************/
-enum ERRORS
-{
-    NO_ERROR,
-    NULL_POINTER,
-    EMPTY_QUEUE
-};
-
-
-
-
 /**********************
  *  Static function   *
  *   declarations     *
@@ -63,6 +50,31 @@ has_greater_priority(struct PriorityObject* new_object,
  *     Definitions    *
  **********************/
 
+struct PriorityQueue*
+init_PriorityQueue(int* error)
+{
+    *error = PQ_NO_ERROR;
+    struct PriorityQueue* pq = malloc(sizeof(struct PriorityQueue));
+
+    if(!pq)
+    {
+	*error = PQ_BAD_ALLOC;
+	return NULL;
+    }
+    
+    pq->tail = NULL;
+    pq->size = 0;
+
+    return pq;
+}
+
+void
+free_PriorityQueue(struct PriorityQueue* p, int* error)
+{
+    error = PQ_NO_ERROR;
+    //TO BE COMPLETED
+}
+
 bool 
 push(struct PriorityQueue* queue,
      struct PriorityObject* new_object,
@@ -74,10 +86,10 @@ push(struct PriorityQueue* queue,
     // If we get to the start and we haven't found a
     // place for it then put it at the start.
 
-    *error = NO_ERROR;
+    *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = NULL_POINTER; 
+	*error = PQ_NULL_POINTER; 
 	return false;
     }
 
@@ -101,16 +113,16 @@ push(struct PriorityQueue* queue,
 void* 
 pop(struct PriorityQueue* queue, int* error)
 {
-    *error = NO_ERROR;
+    *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = NULL_POINTER;	
+	*error = PQ_NULL_POINTER;	
 	return NULL;
     }
 
     if(queue->size == 0)
     {	
-	*error = EMPTY_QUEUE;	
+	*error = PQ_EMPTY_QUEUE;	
 	return NULL;
     }  
 
@@ -122,16 +134,16 @@ pop(struct PriorityQueue* queue, int* error)
 void* 
 peek(const struct PriorityQueue* queue, int* error)
 {
-    *error = NO_ERROR;
+    *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = NULL_POINTER;
+	*error = PQ_NULL_POINTER;
 	return NULL;
     }
 
     if(queue->size == 0)
     {	
-	*error = EMPTY_QUEUE;	
+	*error = PQ_EMPTY_QUEUE;	
 	return NULL;
     }
 
@@ -141,10 +153,10 @@ peek(const struct PriorityQueue* queue, int* error)
 int 
 size(const struct PriorityQueue* queue, int* error)
 {
-    *error = NO_ERROR;
+    *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = NULL_POINTER;
+	*error = PQ_NULL_POINTER;
 	return 0;
     }
 
@@ -154,10 +166,10 @@ size(const struct PriorityQueue* queue, int* error)
 bool 
 isEmpty(const struct PriorityQueue* queue, int* error)
 {
-    *error = NO_ERROR;
+    *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = NULL_POINTER;
+	*error = PQ_NULL_POINTER;
 	return true;
     }
 
@@ -220,11 +232,4 @@ has_greater_priority(struct PriorityObject* new_object,
 	return true;
     }
     return false;
-}
-
-int main()
-{
-    return 0;
-
-    //Put some tests in here!
 }

@@ -1,6 +1,18 @@
 #include<stdlib.h>
 #include <stdbool.h>
 
+
+/********************
+ * Enum definitions *
+ ********************/
+enum ERRORS
+{
+    PQ_NO_ERROR,
+    PQ_NULL_POINTER,
+    PQ_EMPTY_QUEUE,
+    PQ_BAD_ALLOC
+};
+
 /************************
  * Forward declarations *
  ************************/
@@ -19,6 +31,10 @@ struct PriorityObject
 /************************
  * Function Definitions *
  ************************/
+
+struct PriorityQueue* init_PriorityQueue(int* error);
+
+void free_PriorityQueue(struct PriorityQueue* queue, int* error);
 
 bool push(struct PriorityQueue* queue,
 	  struct PriorityObject* new_object,
