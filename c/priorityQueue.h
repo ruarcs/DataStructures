@@ -34,20 +34,21 @@ struct PriorityObject
 
 struct PriorityQueue* init_PriorityQueue(int* error);
 
-void free_PriorityQueue(struct PriorityQueue* queue, int* error);
+void free_PriorityQueue(struct PriorityQueue* queue,
+                        int* error);
 
 bool push(struct PriorityQueue* queue,
-	  struct PriorityObject* new_object,
-	  int* error);
+	      struct PriorityObject* new_object,
+	      int* error);
 
 void* pop(struct PriorityQueue* queue,
-	  int* error);
+	      int* error);
 
 void* peek(const struct PriorityQueue* queue,
-	   int* error);
+	       int* error);
 
 int size(const struct PriorityQueue* queue,
-	 int* error);
+	     int* error);
 
 bool isEmpty(const struct PriorityQueue* queue,
-	     int* error);
+	         int* error);

@@ -10,8 +10,8 @@ int main()
     
     if(obj)
     {
-	obj->priority = 100;
-	obj->object_data = &test_data;
+        obj->priority = 100;
+        obj->object_data = &test_data;
     }
 
     push(pq, obj, &error);

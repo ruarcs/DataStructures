@@ -58,8 +58,8 @@ init_PriorityQueue(int* error)
 
     if(!pq)
     {
-	*error = PQ_BAD_ALLOC;
-	return NULL;
+	    *error = PQ_BAD_ALLOC;
+	    return NULL;
     }
     
     pq->tail = NULL;
@@ -89,8 +89,8 @@ push(struct PriorityQueue* queue,
     *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = PQ_NULL_POINTER; 
-	return false;
+	    *error = PQ_NULL_POINTER; 
+	    return false;
     }
 
     struct Element* temp = queue->tail;
@@ -99,10 +99,10 @@ push(struct PriorityQueue* queue,
     
     while(count-- < queue->size)
     {
-	if(has_greater_priority(new_object, temp->elem_data))
-	{
-	    place_after_current(queue, temp, new_object);
-	}
+	    if(has_greater_priority(new_object, temp->elem_data))
+	    {
+	        place_after_current(queue, temp, new_object);
+	    }
     }
 
     //Make the new object the head of the list.
@@ -116,14 +116,14 @@ pop(struct PriorityQueue* queue, int* error)
     *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = PQ_NULL_POINTER;	
-	return NULL;
+	    *error = PQ_NULL_POINTER;	
+	    return NULL;
     }
 
     if(queue->size == 0)
     {	
-	*error = PQ_EMPTY_QUEUE;	
-	return NULL;
+	    *error = PQ_EMPTY_QUEUE;	
+	    return NULL;
     }  
 
     struct Element* temp = queue->tail;
@@ -137,14 +137,14 @@ peek(const struct PriorityQueue* queue, int* error)
     *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = PQ_NULL_POINTER;
-	return NULL;
+	    *error = PQ_NULL_POINTER;
+	    return NULL;
     }
 
     if(queue->size == 0)
     {	
-	*error = PQ_EMPTY_QUEUE;	
-	return NULL;
+	    *error = PQ_EMPTY_QUEUE;	
+	    return NULL;
     }
 
     return(queue->tail->elem_data->object_data);
@@ -156,8 +156,8 @@ size(const struct PriorityQueue* queue, int* error)
     *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = PQ_NULL_POINTER;
-	return 0;
+	    *error = PQ_NULL_POINTER;
+	    return 0;
     }
 
     return (queue->size);
@@ -204,7 +204,7 @@ place_after_current(struct PriorityQueue* queue,
 
     if(!new_element)
     {
-	return false;
+	    return false;
     }
 
     //Place new object after current one
@@ -226,10 +226,9 @@ has_greater_priority(struct PriorityObject* new_object,
     assert(new_object != NULL);
     assert(current != NULL);
     
-
     if(current->priority < new_object->priority)
     {
-	return true;
+	    return true;
     }
     return false;
 }
