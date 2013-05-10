@@ -97,7 +97,7 @@ push(struct PriorityQueue* queue,
 
     int count = 0;
     
-    while(count-- < queue->size)
+    while(count++ < queue->size)
     {
 	    if(has_greater_priority(new_object, temp->elem_data))
 	    {
