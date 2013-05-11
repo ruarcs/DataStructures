@@ -115,6 +115,25 @@ push(struct PriorityQueue* queue,
 
     struct Element* temp = queue->tail;
 
+    if(temp == NULL)
+    {
+    	//Zero element list. Make it the tail
+        struct Element* new_element = malloc(sizeof(struct Element));
+        if(!new_element)
+        {
+        	*error = PQ_BAD_ALLOC;
+    	    return false;
+        }
+
+        new_element->elem_data = new_object;
+        new_element->previous = NULL;
+        new_element->next = NULL;
+
+        queue->tail = new_element;
+        queue->size = 1;
+        return true;
+    }
+
     int count = 0;
     
     while(temp->previous != NULL)
@@ -123,14 +142,14 @@ push(struct PriorityQueue* queue,
 	    {
             //Place new object after temp
 	        place_after_current(queue, temp, new_object);
-            return;
+            return true;
 	    }
         temp = temp->previous;
     }
 
     //Place new object before temp
     place_before_current(queue, temp, new_object);
-    return;
+    return true;
 }
 
 void* 

@@ -15,4 +15,6 @@ int main()
     }
 
     push(pq, obj, &error);
+    void* data = pop(pq, &error);
+    free_PriorityQueue(pq, &error);
 }
