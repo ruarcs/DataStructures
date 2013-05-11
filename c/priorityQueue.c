@@ -101,12 +101,12 @@ push(struct PriorityQueue* queue,
     {
 	    if(has_greater_priority(new_object, temp->elem_data))
 	    {
+            //Place new object after temp
 	        place_after_current(queue, temp, new_object);
 	    }
     }
 
-    //Make the new object the head of the list.
-    //Place new object after this one
+    //Place new object before temp
     place_before_current(queue, temp, new_object);
 }
 
@@ -190,8 +190,22 @@ place_before_current(struct PriorityQueue* queue,
 		     struct Element* current,
 		     struct PriorityObject* new)
 {
-    assert(false);
-    return false;
+    struct Element* new_element = malloc(sizeof(struct Element));
+
+    if(!new_element)
+    {
+	    return false;
+    }
+
+    //Place new object before current one:
+    struct Element* holder = current;    
+    current->previous->next = new_element;
+    current->previous = new_element;
+
+    new_element->next = current;
+    new_element->previous = holder->previous;  
+
+    return true;
 }
 
 static
