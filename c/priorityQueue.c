@@ -69,10 +69,30 @@ init_PriorityQueue(int* error)
 }
 
 void
-free_PriorityQueue(struct PriorityQueue* p, int* error)
+free_PriorityQueue(struct PriorityQueue* pq, int* error)
 {
-    error = PQ_NO_ERROR;
-    //TO BE COMPLETED
+    *error = PQ_NO_ERROR;
+    if(!pq)
+    {
+        *error = PQ_NULL_POINTER;
+        return;
+    }
+
+    struct Element* temp = pq->tail;
+    struct Element* next_to_delete = NULL;
+
+    if(temp)
+    {
+        do
+        {
+            next_to_delete = temp->previous;
+            free(temp);
+            temp = next_to_delete;
+        }
+        while(next_to_delete != NULL);
+    }
+  
+    return;
 }
 
 bool 
@@ -97,17 +117,20 @@ push(struct PriorityQueue* queue,
 
     int count = 0;
     
-    while(count++ < queue->size)
+    while(temp->previous != NULL)
     {
 	    if(has_greater_priority(new_object, temp->elem_data))
 	    {
             //Place new object after temp
 	        place_after_current(queue, temp, new_object);
+            return;
 	    }
+        temp = temp->previous;
     }
 
     //Place new object before temp
     place_before_current(queue, temp, new_object);
+    return;
 }
 
 void* 
@@ -128,7 +151,9 @@ pop(struct PriorityQueue* queue, int* error)
 
     struct Element* temp = queue->tail;
     queue->tail = queue->tail->previous;
-    return(temp->elem_data->object_data);
+    void* holder = temp->elem_data->object_data;
+    free(temp);
+    return(holder);
 }
 
 void* 
@@ -190,6 +215,10 @@ place_before_current(struct PriorityQueue* queue,
 		     struct Element* current,
 		     struct PriorityObject* new)
 {
+    assert(queue != NULL);
+    assert(current != NULL);
+    assert(new != NULL);
+
     struct Element* new_element = malloc(sizeof(struct Element));
 
     if(!new_element)
@@ -214,6 +243,10 @@ place_after_current(struct PriorityQueue* queue,
 		    struct Element* current,
 		    struct PriorityObject* new)
 {
+    assert(queue != NULL);
+    assert(current != NULL);
+    assert(new != NULL);
+
     struct Element* new_element = malloc(sizeof(struct Element));
 
     if(!new_element)
