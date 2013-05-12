@@ -87,6 +87,7 @@ free_PriorityQueue(struct PriorityQueue* pq, int* error)
         {
             next_to_delete = temp->previous;
             free(temp);
+            pq->size--;
             temp = next_to_delete;
         }
         while(next_to_delete != NULL);
@@ -133,10 +134,10 @@ push(struct PriorityQueue* queue,
         queue->size = 1;
         return true;
     }
-
-    int count = 0;
     
-    while(temp->previous != NULL)
+    void* holder = NULL;
+
+    do
     {
 	    if(has_greater_priority(new_object, temp->elem_data))
 	    {
@@ -144,11 +145,13 @@ push(struct PriorityQueue* queue,
 	        place_after_current(queue, temp, new_object);
             return true;
 	    }
+        holder = temp;
         temp = temp->previous;
     }
+    while(temp != NULL);
 
     //Place new object before temp
-    place_before_current(queue, temp, new_object);
+    place_before_current(queue, (struct Element*)holder, new_object);
     return true;
 }
 
@@ -172,6 +175,7 @@ pop(struct PriorityQueue* queue, int* error)
     queue->tail = queue->tail->previous;
     void* holder = temp->elem_data->object_data;
     free(temp);
+    queue->size--;
     return(holder);
 }
 
@@ -213,8 +217,8 @@ isEmpty(const struct PriorityQueue* queue, int* error)
     *error = PQ_NO_ERROR;
     if(!queue)
     {
-	*error = PQ_NULL_POINTER;
-	return true;
+    	*error = PQ_NULL_POINTER;
+    	return true;
     }
 
     return (queue->size == 0);   
@@ -244,14 +248,25 @@ place_before_current(struct PriorityQueue* queue,
     {
 	    return false;
     }
+    new_element->elem_data = new;
 
     //Place new object before current one:
-    struct Element* holder = current;    
-    current->previous->next = new_element;
+    void* holder = current->previous;
+
+    if(current->previous)
+    {
+    	current->previous->next = new_element;
+    }
     current->previous = new_element;
 
     new_element->next = current;
-    new_element->previous = holder->previous;  
+    new_element->previous = holder;
+
+    if(new_element->next == NULL)
+    {
+    	queue->tail = new_element;
+    }
+    queue->size++;
 
     return true;
 }
@@ -272,14 +287,25 @@ place_after_current(struct PriorityQueue* queue,
     {
 	    return false;
     }
+    new_element->elem_data = new;
 
     //Place new object after current one
-    struct Element* holder = current;    
-    current->next->previous = new_element;
-    current->next = new_element;
+    void* holder = current->next;
+
+    if(current->next)
+    {
+    	current->next->previous = new_element;
+    }
+	current->next = new_element;
 
     new_element->previous = current;
-    new_element->next = holder->next;  
+    new_element->next = holder;
+
+    if(new_element->next == NULL)
+    {
+    	queue->tail = new_element;
+    }
+    queue->size++;
 
     return true;
 }
