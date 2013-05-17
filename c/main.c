@@ -1,26 +1,23 @@
 #include "priorityQueue.h"
 #include <assert.h>
-
-struct PriorityObject* createDummyObject(void* test_data, int test_priority)
-{
-    struct PriorityObject* obj = malloc(sizeof(struct PriorityObject));
-    obj->priority = test_priority;
-    obj->object_data = test_data;
-    return obj;
-}
+#include "person.h"
 
 int main()
 {
     int error;
-    struct PriorityQueue* pq = init_PriorityQueue(&error);
+    struct PriorityQueue* pq = init_PriorityQueue(&error/*, PQ_TYPES_PERSON*/);
 
-    int test_data1 = 100;
-    int test_data2 = 1000;
-    int test_data3 = 1;
+    const char* name1[] = "John";
+    const char* name2[] = "Mary";
+    const char* name3[] = "Pete";
+
+    struct person person1 = init_person(25, 145, name1);
+    struct person person2 = init_person(67, 125, name2);
+    struct person person3 = init_person(44, 132, name3);
     
-    struct PriorityObject* obj1 = createDummyObject( (void*)&test_data1, 100);
-    struct PriorityObject* obj2 = createDummyObject( (void*)&test_data2, 1000);
-    struct PriorityObject* obj3 = createDummyObject( (void*)&test_data3, 1);
+    struct PriorityObject* obj1 = createDummyObject(&person1, person1->age);
+    struct PriorityObject* obj2 = createDummyObject(&person2, person2->age;
+    struct PriorityObject* obj3 = createDummyObject(&person3, person3->age;
 
     push(pq, obj1, &error);
     push(pq, obj2, &error);

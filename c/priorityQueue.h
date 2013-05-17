@@ -52,3 +52,6 @@ int size(const struct PriorityQueue* queue,
 
 bool isEmpty(const struct PriorityQueue* queue,
 	         int* error);
+
+struct PriorityObject* createPriorityObject(void* data,
+                                            int priority);

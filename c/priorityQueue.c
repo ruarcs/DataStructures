@@ -324,3 +324,16 @@ has_greater_priority(struct PriorityObject* new_object,
     }
     return false;
 }
+
+
+/**********************
+ *       Helpers      *
+ **********************/
+struct PriorityObject* 
+createPriorityObject(void* data, int priority)
+{
+     struct PriorityObject* obj = malloc(sizeof(struct PriorityObject));
+     obj->priority = priority;
+     obj->object_data = data;
+     return obj;
+ }
