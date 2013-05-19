@@ -25,16 +25,16 @@ int main()
 
 
     void* data = pop(pq, &error);
-    assert(data == &person2);
+    assert(data == obj2);
 
     data = pop(pq, &error);
-    assert(data == &person1);
+    assert(data == obj3);
 
     assert(!(isEmpty(pq, &error)));
     assert(size(pq, &error) == 1);
 
     data = pop(pq, &error);
-    assert(data == &person3);
+    assert(data == obj1);
 
     assert(isEmpty(pq, &error));
 

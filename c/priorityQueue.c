@@ -173,7 +173,7 @@ pop(struct PriorityQueue* queue, int* error)
 
     struct Element* temp = queue->tail;
     queue->tail = queue->tail->previous;
-    void* holder = temp->elem_data->object_data;
+    void* holder = temp->elem_data;
     free(temp);
     queue->size--;
     return(holder);
