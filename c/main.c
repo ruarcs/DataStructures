@@ -5,19 +5,19 @@
 int main()
 {
     int error;
-    struct PriorityQueue* pq = init_PriorityQueue(&error/*, PQ_TYPES_PERSON*/);
+    struct PriorityQueue* pq = init_PriorityQueue(&error);
 
-    const char* name1[] = "John";
-    const char* name2[] = "Mary";
-    const char* name3[] = "Pete";
+    char name1[] = "John";
+    char name2[] = "Mary";
+    char name3[] = "Pete";
 
-    struct person person1 = init_person(25, 145, name1);
-    struct person person2 = init_person(67, 125, name2);
-    struct person person3 = init_person(44, 132, name3);
+    struct person* person1 = init_person(25, 145, name1);
+    struct person* person2 = init_person(67, 125, name2);
+    struct person* person3 = init_person(44, 132, name3);
     
-    struct PriorityObject* obj1 = createDummyObject(&person1, person1->age);
-    struct PriorityObject* obj2 = createDummyObject(&person2, person2->age;
-    struct PriorityObject* obj3 = createDummyObject(&person3, person3->age;
+    struct PriorityObject* obj1 = createPriorityObject(&person1, person1->age);
+    struct PriorityObject* obj2 = createPriorityObject(&person2, person2->age);
+    struct PriorityObject* obj3 = createPriorityObject(&person3, person3->age);
 
     push(pq, obj1, &error);
     push(pq, obj2, &error);
@@ -25,16 +25,16 @@ int main()
 
 
     void* data = pop(pq, &error);
-    assert(data == &test_data2);
+    assert(data == &person2);
 
     data = pop(pq, &error);
-    assert(data == &test_data1);
+    assert(data == &person1);
 
     assert(!(isEmpty(pq, &error)));
     assert(size(pq, &error) == 1);
 
     data = pop(pq, &error);
-    assert(data == &test_data3);
+    assert(data == &person3);
 
     assert(isEmpty(pq, &error));
 

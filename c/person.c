@@ -1,4 +1,5 @@
 #include "person.h"
+#include <stdlib.h>
 
 /*
   This function will make you a whole new person........hweh hweh hweh........
@@ -9,7 +10,7 @@ init_person(int age, int height, const char* name)
 {
     struct person* new_person = malloc(sizeof(struct person));
 
-    if(!person)
+    if(!new_person)
     {
         return NULL;
     }
